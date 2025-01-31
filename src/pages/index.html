@@ -39,18 +39,21 @@
 		</div>
 	</div>
 
-	<div class="modal modal_active">
+	<!-- modal_active -->
+	<!-- card__category_other -->
+
+	<div class="modal card_popup">
 		<div class="modal__container">
 			<button class="modal__close" aria-label="закрыть"></button>
 			<div class="modal__content">
 				<div class="card card_full">
 					<img class="card__image" src="<%=require('../images/Subtract.svg')%>" alt="" />
 					<div class="card__column">
-						<span class="card__category card__category_other">другое</span>
+						<span class="card__category">другое</span>
 						<h2 class="card__title">Бэкенд-антистресс</h2>
 						<p class="card__text">Если планируете решать задачи в тренажёре, берите два.</p>
 						<div class="card__row">
-							<button class="button">В корзину</button>
+							<button class="button to__basket__button">В корзину</button>
 							<span class="card__price">1000 синапсов</span>
 						</div>
 					</div>
@@ -59,9 +62,9 @@
 		</div>
 	</div>
 
-	<div class="modal">
+	<div class="modal basket_modal">
 		<div class="modal__container">
-			<button class="modal__close" aria-label="закрыть"></button>
+			<button class="modal__close basket__close__button" aria-label="закрыть"></button>
 			<div class="modal__content">
 				<div class="basket">
 					<h2 class="modal__title">Корзина</h2>
@@ -86,7 +89,7 @@
 						</li>
 					</ul>
 					<div class="modal__actions">
-						<button class="button">Оформить</button>
+						<button class="button basket__button" disabled>Оформить</button>
 						<span class="basket__price">153 250 синапсов</span>
 					</div>
 				</div>
@@ -94,56 +97,60 @@
 		</div>
 	</div>
 
-	<div class="modal">
+	<!-- button_alt-active -->
+
+	<div class="modal payment_modal">
 		<div class="modal__container">
-			<button class="modal__close" aria-label="закрыть"></button>
+			<button class="modal__close payment__close__button" aria-label="закрыть"></button>
 			<div class="modal__content">
-				<form class="form">
+				<form class="form payment__form">
 					<div class="order">
 						<div class="order__field">
 							<h2 class="modal__title">Способ оплаты</h2>
 							<div class="order__buttons">
-								<button type="button" class="button button_alt">Онлайн</button>
-								<button type="button" class="button button_alt">При получении</button>
+								<button name="card" type="button" class="button button_alt">Онлайн</button>
+								<button name="cash" type="button" class="button button_alt">При получении</button>
 							</div>
 						</div>
 						<label class="order__field">
 							<span class="form__label modal__title">Адрес доставки</span>
-							<input class="form__input" type="text" placeholder="Введите адрес" />
+							<input name="address" class="form__input" type="text" placeholder="Введите адрес" />
 						</label>
 					</div>
 					<div class="modal__actions">
-						<button disabled class="button">Далее</button>
+						<button disabled class="button payment__action__button">Далее</button>
+						<span class="form__errors"></span>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 
-	<div class="modal">
+	<div class="modal contact_modal">
 		<div class="modal__container">
-			<button class="modal__close" aria-label="закрыть"></button>
+			<button class="modal__close contact__close__button" aria-label="закрыть"></button>
 			<div class="modal__content">
-				<form class="form">
+				<form class="form contact__form">
 					<div class="order">
 						<label class="order__field">
 							<span class="form__label modal__title">Email</span>
-							<input class="form__input" type="text" placeholder="Введите Email" />
+							<input name="email" class="form__input" type="email" placeholder="Введите Email" />
 						</label>
 						<label class="order__field">
 							<span class="form__label modal__title">Телефон</span>
-							<input class="form__input" type="text" placeholder="+7 (" />
+							<input name="phone" class="form__input" type="text" placeholder="+7 (" />
 						</label>
 					</div>
 					<div class="modal__actions">
-						<button disabled class="button">Оплатить</button>
+						<button disabled class="button contact__action__button">Оплатить</button>
+						<span class="form__errors"></span>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 
-	<div class="modal">
+	<div class="modal modal__success">
 		<div class="modal__container">
 			<button class="modal__close" aria-label="закрыть"></button>
 			<div class="modal__content">
@@ -164,9 +171,14 @@
 		</div>
 	</template>
 
+
+	<!-- ! карточка товара -->
+
+	<!-- card__category_soft -->
+
 	<template id="card-catalog">
-		<button class="gallery__item card">
-			<span class="card__category card__category_soft">софт-скил</span>
+		<button class="gallery__item card item_button">
+			<span class="card__category">софт-скил</span>
 			<h2 class="card__title">+1 час в сутках</h2>
 			<img class="card__image" src="<%=require('../images/Subtract.svg')%>" alt="" />
 			<span class="card__price">750 синапсов</span>
@@ -188,6 +200,8 @@
 		</div>
 	</template>
 
+	<!-- ! карточка в корзине -->
+
 	<template id="card-basket">
 		<li class="basket__item card card_compact">
 			<span class="basket__item-index">1</span>
@@ -196,6 +210,8 @@
 			<button class="basket__item-delete card__button" aria-label="удалить"></button>
 		</li>
 	</template>
+
+	<!-- ! корзина-->
 
 	<template id="basket">
 		<div class="basket">
@@ -209,7 +225,7 @@
 	</template>
 
 	<template id="order">
-		<form class="form" name="order">
+		<form class="form payment__form" name="order">
 			<div class="order">
 				<div class="order__field">
 					<h2 class="modal__title">Способ оплаты</h2>
