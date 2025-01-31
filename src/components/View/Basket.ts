@@ -6,22 +6,24 @@ import { IEvents } from "../base/events";
 interface IBasket {
     itemList: HTMLElement[];
     totalItems: (value: number) => void;
+    renderBasket(): HTMLElement;
 }
 
-export class Basket extends Component<IBasket> {
+export class Basket implements IBasket {
+    protected basket: HTMLElement;
     protected _list: HTMLElement;
-    // protected _basketCloseButton: HTMLButtonElement;
     protected _busketOrderButton: HTMLButtonElement;
     protected _basketFullPrice: HTMLElement;
     protected _busketItemsList: HTMLElement[];
-    protected items: IItemData[];
+    protected items: HTMLElement[];
 
     constructor(container: HTMLElement, protected events: IEvents) {
-        super(container);
+        this.basket = container;
 
-        this._list = ensureElement<HTMLElement>('.basket__list', this.container);
-        this._busketOrderButton = ensureElement('.basket__button', this.container) as HTMLButtonElement;
-        this._basketFullPrice = ensureElement('.basket__price', this.container);
+        this._list = ensureElement<HTMLElement>('.basket__list', this.basket);
+        this._busketOrderButton = ensureElement('.basket__button', this.basket) as HTMLButtonElement;
+        this._basketFullPrice = ensureElement('.basket__price', this.basket);
+        
 
         this._busketOrderButton.addEventListener('click', () => this.events.emit('orderItem'));
     
@@ -40,5 +42,9 @@ export class Basket extends Component<IBasket> {
             this._busketOrderButton.setAttribute('disabled', 'disabled');
             this._list.replaceChildren(createElement<HTMLParagraphElement>('p', { textContent: 'Корзина пуста' }));
         }
+    }
+
+    renderBasket(): HTMLElement {
+        return this.basket;
     }
 }

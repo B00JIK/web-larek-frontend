@@ -3,7 +3,12 @@ import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Components";
 import { IEvents } from "../base/events";
 
-export class BasketItem extends Component<IItemData> {
+interface IBasketItem {
+    renderItem(data: IItemData, index: number): HTMLElement;
+}
+
+
+export class BasketItem extends Component<IItemData> implements IBasketItem {
     protected _cardTitle: HTMLElement;
     protected _cardPrice: HTMLElement;
     protected _itemIndex: HTMLElement;
@@ -12,6 +17,7 @@ export class BasketItem extends Component<IItemData> {
     protected _basketSubmitButton: HTMLButtonElement;
     protected _basketCloseButton: HTMLButtonElement;
     protected _itemId: string;
+
 
     constructor(container: HTMLElement, protected events: IEvents) {
         super(container);
@@ -24,23 +30,14 @@ export class BasketItem extends Component<IItemData> {
         this._itemDeleteButton.addEventListener('click', () => this.events.emit('itemToBasket: delete', {id: this._itemId}));
     }
 
-    set title(value: string) {
-        this.setText(this._cardTitle, value);
-    }
-
-    set price(value: number) {
-        if (value === null) {
-            this.setText(this._cardPrice, 'Бесценно');
-        } else {
-            this.setText(this._cardPrice, String(value) + ' синапсов')
-        }
-    }   
-
-    set id(value: string) {
-        this._itemId = value;
-    }
-
     get id(): string {
         return this._itemId;
+    }
+
+    renderItem(data: IItemData, index: number): HTMLElement {
+        this._cardTitle.textContent = data.title;
+        this._cardPrice.textContent = String(data.price) + ' синапсов';
+        this._itemIndex.textContent = String(index);
+        return this.container;
     }
 }
