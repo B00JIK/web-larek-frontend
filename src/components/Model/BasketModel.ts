@@ -21,7 +21,7 @@ export class BasketModel implements IBasketModel {
 
     set BasketItemsList(value: IItemData[]) {
         this._basketItemsList = value;
-    }       
+    }  
 
     get BasketItemsList(): IItemData[] {
         return this._basketItemsList;

@@ -64,7 +64,6 @@ events.on('modalImageItem: open', ({id}:{id: string}) => {
     const item = dataModel.getItems().find(item => item.id === id);
     modal.content = popupItem.render(item);
     modal.render();
-    // itemPopup.classList.add('modal_active');
 });
 
 // закрытие модального окна
@@ -75,10 +74,14 @@ events.on('modaImagelItem: close', () => {
 
 // обновить корзину
 
-events.on('itemsbasket:changed', () => {
-    const itemsArray = basketModel.BasketItemsList.map(item => new BasketItem(cloneTemplate(templateBasketItem), events).render(item));
-    basket.render({itemList: itemsArray});
-})
+// events.on('itemsbasket:changed', () => {
+//     const itemsArray = basketModel.BasketItemsList.map(function(item) {
+//         console.log(basketModel.BasketItemsList.length);
+//          return new BasketItem(cloneTemplate(templateBasketItem), events).renderItem(item, basketModel.BasketItemsList.length);
+//     });
+//     console.log(itemsArray);
+//     basket.render({itemList: itemsArray});
+// })
 
 // добавить в корзину
 
@@ -92,16 +95,28 @@ events.on('itemToBasket: add', ({id}:{id: string}) => {
 
 events.on('itemToBasket: delete', ({id}:{id: string}) => {
     const item = dataModel.getItems().find(item => item.id === id);
+    let i = 0;
     basketModel.deleteItem(item);
     page.totalItems(basketModel.itemsCounter());
     basket.totalItems(basketModel.totalItemsPrice());
+    basket.itemList = basketModel.BasketItemsList.map(function(item) {
+        const basketItem = new BasketItem(cloneTemplate(templateBasketItem), events);     
+        i = i + 1;
+        return basketItem.renderItem(item, i);
+    });
 });
 
 // открыть корзину
 
 events.on('openBasket', () => {
     basket.totalItems(basketModel.totalItemsPrice());
-    modal.content = basket.render();
+    let i = 0;
+    basket.itemList = basketModel.BasketItemsList.map(function(item) {
+        const basketItem = new BasketItem(cloneTemplate(templateBasketItem), events);     
+        i = i + 1;
+        return basketItem.renderItem(item, i);
+            });
+    modal.content = basket.renderBasket();
     modal.render();
 });
 
