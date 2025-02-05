@@ -24,7 +24,7 @@ export interface IOrder extends IOrderForm {
 }
 
 export interface IOrderResult {
-    id: string;
+    id: string[];
     total: number;
 }
 

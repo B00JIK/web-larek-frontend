@@ -189,7 +189,7 @@
 		<div class="card card_full">
 			<img class="card__image" src="<%=require('../images/Subtract.svg')%>" alt="" />
 			<div class="card__column">
-				<span class="card__category card__category_other">другое</span>
+				<span class="card__category">другое</span>
 				<h2 class="card__title">Бэкенд-антистресс</h2>
 				<p class="card__text">Если планируете решать задачи в тренажёре, берите два.</p>
 				<div class="card__row">
@@ -247,7 +247,7 @@
 	</template>
 
 	<template id="contacts">
-		<form class="form" name="contacts">
+		<form class="form contact__form" name="contacts">
 			<div class="order">
 				<label class="order__field">
 					<span class="form__label modal__title">Email</span>
@@ -259,7 +259,7 @@
 				</label>
 			</div>
 			<div class="modal__actions">
-				<button type="submit" disabled class="button">Оплатить</button>
+				<button type="submit" disabled class="button order__button">Оплатить</button>
 				<span class="form__errors"></span>
 			</div>
 		</form>
