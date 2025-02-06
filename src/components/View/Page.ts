@@ -29,6 +29,6 @@ export class Page extends Component<IPage> {
     } 
  
     totalItems(value: number) { 
-        this.totalItemsCount.textContent = String(value); 
+        this.setText(this.totalItemsCount, String(value));
     } 
 } 

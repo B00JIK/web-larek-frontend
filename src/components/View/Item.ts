@@ -37,7 +37,7 @@ export class Item extends Component<IItemData> {
  
     set category(value: string) { 
         this.setText(this._itemCategory, value); 
-        this._itemCategory.classList.add(`card__category_${this._colors[value]}`); 
+        this.toggleClass(this._itemCategory, `card__category_${this._colors[value]}`);
     } 
  
     set image(value: string) { 

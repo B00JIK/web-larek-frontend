@@ -48,13 +48,9 @@ export class PaymentForm extends Form<IPaymentForm> {
         }); 
     } 
  
-    set choosePaymentMethod(paymentMethod: string) { 
-        this._paymentMethodButtonList.forEach(item => { 
-            if(item.name === paymentMethod) { 
-                this.toggleClass(item, 'button_alt-active', true);
-            } else { 
-                this.toggleClass(item, 'button_alt-active', false); 
-            } 
-        }) 
-    } 
+    set choosePaymentMethod(paymentMethod: string) {
+        this._paymentMethodButtonList.forEach((item) => {
+            this.toggleClass(item, 'button_alt-active', item.name === paymentMethod);
+        });
+    }
 }

@@ -132,12 +132,12 @@ events.on('order:changeAddress', ({field, value}:{field: string, value: string})
  
 events.on('paymentForm: choosePaymentMethod', (button: HTMLButtonElement) => { 
     paymentForm.choosePaymentMethod = button.name; 
-    formModel.payment = button.name; 
+    formModel.setOrderPayment(button.name);
 }); 
  
 // валидация ввода адресса и выбора типа оплаты 
  
-events.on('formErrors:change', (errors: Partial<IOrderForm>) => { 
+events.on('formErrorsPayment:change', (errors: Partial<IOrderForm>) => { 
     const { address, payment } = errors; 
     paymentForm.valid = !address && !payment; 
     paymentForm.errors = Object.values({address, payment}).filter(i => !!i).join('; '); 
@@ -169,7 +169,7 @@ events.on('сontactForm: submit', () => {
         .then((data) => { 
             console.log(data); 
             const success = new Success(successPopup, events); 
-            modal.content = success.render(formModel.total); 
+            modal.content = success.renderSuccess(formModel.total); 
             modal.render(); 
             basketModel.clearBasket(); 
             page.totalItems(basketModel.itemsCounter()); 
