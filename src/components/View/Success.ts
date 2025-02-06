@@ -9,12 +9,13 @@ interface ISuccess {
     render(total: number): HTMLElement;  
 } 
  
-export class Success  { 
+export class Success extends Component<ISuccess> { 
     protected _modalTotalPrice: HTMLElement; 
     protected _modalFinishButton: HTMLButtonElement; 
     protected container: HTMLElement 
  
     constructor(container: HTMLElement, protected events: IEvents) { 
+        super(container);
         this.container = container;  
  
         this._modalTotalPrice = ensureElement('.order-success__description', this.container); 
@@ -23,8 +24,8 @@ export class Success  {
         this._modalFinishButton.addEventListener('click', () => this.events.emit('successModal: close')); 
     } 
  
-    render(total: number) { 
-        this._modalTotalPrice.textContent = String(`Списано ${total} синапсов`); 
+    renderSuccess(total: number) { 
+        this.setText(this._modalTotalPrice, String(total));
         return this.container; 
       } 
 } 

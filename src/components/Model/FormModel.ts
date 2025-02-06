@@ -20,13 +20,16 @@ export class FormModel {
         this.total = 0;
         this.items = [];
       }
-
     
     setOrderAddress(field: string, value: string) {
-        if (field === 'address') {
-            this.address = value;
+        this.address = value;
+        if (this.validateAddress()) {
+            this.events.emit('order:ready', this.getOrder());
         }
+    }
 
+    setOrderPayment(value: string) {
+        this.payment = value;
         if (this.validateAddress()) {
             this.events.emit('order:ready', this.getOrder());
         }
@@ -50,10 +53,11 @@ export class FormModel {
             errors.address = 'Необходимо указать адрес';
         }
         if (!this.payment) {
+            console.log(!this.payment)
             errors.payment = 'Выберите способ оплаты';
         }
         this.formErrors = errors;
-        this.events.emit('formErrors:change', this.formErrors);
+        this.events.emit('formErrorsPayment:change', this.formErrors);
         return Object.keys(errors).length === 0;
     }
 

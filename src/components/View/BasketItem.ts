@@ -36,7 +36,7 @@ export class BasketItem extends Component<IItemData> implements IBasketItem {
  
     renderItem(data: IItemData, index: number): HTMLElement { 
         this.setText(this._cardTitle, data.title);
-        this.setText(this._cardPrice, `${data.price} + ' синапсов'`);
+        this.setText(this._cardPrice, `${data.price}` +  ` синапсов`);
         this.setText(this._itemIndex, String(index));
         return this.container; 
     } 
